@@ -1,8 +1,3 @@
-import java.util.*;
-import controlP5.*;
-
-ControlP5 cp5;
-
 float money = 20;
 
 int GAME = 1;
@@ -59,8 +54,8 @@ int numberOfPlayerItems = playerItems.length/2;
 int lastMinute = minute();
 
 //1 = Wheat, 2 = Grapes, 3 = Corn, 4 = Barely
-//Thing, Price
-int[] storeProperties = {1, 5};
+//Thing, Price  
+int[] storeProperties = {1, 5, 2, 20};
 int numberOfStoreObjects = storeProperties.length/2;
 
 int amountOfSpaceFromTheEdgeOfTheScreenTillTheScreenScrolls = 50;//The space at the edge of the screen where the character moves
@@ -185,6 +180,23 @@ void draw() {
         arc(x+10, y+30, 10, 10, 0, HALF_PI);
         arc(x+20, y+30, 10, 10, 0, HALF_PI);
         arc(x+30, y+30, 10, 10, 0, HALF_PI);
+      }else if(objectProperties[i*9-5] == 5){
+      
+      }else if(objectProperties[i*9-5] == 4){
+        int x = objectProperties[i*9-9]-CurrentScreenPosiotionX;
+        int y = objectProperties[i*9-8]-CurrentScreenPosiotionY;
+        line(x, y, x+10, y+10);
+        line(x+10, y,  x+10, y+10);
+        line(x+20, y,  x+10, y+10);
+        line(x+30, y,  x+10, y+10);
+        line(x, y+15,  x+10, y+10);
+        line(x+10, y+15,  x+10, y+10);
+        line(x+20, y+15,  x+10, y+10);
+        line(x+30, y+15, x+10, y+10);
+        line(x, y+30, x+10, y+10);
+        line(x+10, y+30,  x+10, y+10);
+        line(x+20, y+30,  x+10, y+10);
+        line(x+30, y+30,  x+10, y+10);
       }else{
         println("error --- shape type does not exist");
       }
@@ -264,6 +276,8 @@ void draw() {
   }
   if(placingItem == 1){
     drawSampleWheat(mouseX,mouseY);
+  }else if(placingItem == 2){
+    drawSampleGrapes(mouseX,mouseY);
   }
   if(!controlsDisplayed){
     fill(190);
@@ -370,16 +384,16 @@ void keyPressed() {
           break;
         }
       }
-      if(succesful && playerItems[placingItem*2-1] > 0){
-        placeItem(mouseX,mouseY);
-        playerItems[placingItem*2-1] = playerItems[placingItem*2-1] - 1;
+      if(succesful && playerItems[playerHandItem*2-1] > 0){
+        placeItem(mouseX,mouseY, placingItem+2);
       }
-      for(int k = 1;k<numberOfPlayerItems+1;k++){
-        if(playerItems[k*2-1] == 0){
-          explode(playerItems, k*2-1);
-          explode(playerItems, k*2-2);
-        }
-      }
+      playerItems[playerHandItem*2-1] = playerItems[playerHandItem*2-1] - 1;
+      //for(int k = 1;k<numberOfPlayerItems+1;k++){
+        //if(playerItems[k*2-1] == 0){
+          //explode(playerItems, k*2-1);
+          //explode(playerItems, k*2-2);
+        //}
+      //}
     }
    if (key == CODED && gameStatus == GAME) {
     if (keyCode == UP && objectProperties[1*9-8] > worldEdgeY) {
@@ -426,12 +440,28 @@ void drawSampleWheat(int x, int y){
   arc(x+30, y+30, 10, 10, 0, HALF_PI);
 }
 
-void placeItem(int xd, int yd){
+void drawSampleGrapes(int x, int y){
+  color(0,255,0);
+  line(x, y, x+10, y+10);
+  line(x+10, y,  x+10, y+10);
+  line(x+20, y,  x+10, y+10);
+  line(x+30, y,  x+10, y+10);
+  line(x, y+15,  x+10, y+10);
+  line(x+10, y+15,  x+10, y+10);
+  line(x+20, y+15,  x+10, y+10);
+  line(x+30, y+15, x+10, y+10);
+  line(x, y+30, x+10, y+10);
+  line(x+10, y+30,  x+10, y+10);
+  line(x+20, y+30,  x+10, y+10);
+  line(x+30, y+30,  x+10, y+10);
+}
+
+void placeItem(int xd, int yd, int t){
   objectProperties = append(objectProperties,xd+CurrentScreenPosiotionX);
   objectProperties = append(objectProperties,yd+CurrentScreenPosiotionY);
   objectProperties = append(objectProperties,0);
   objectProperties = append(objectProperties,0);
-  objectProperties = append(objectProperties,3);
+  objectProperties = append(objectProperties,t);
   objectProperties = append(objectProperties,255);
   objectProperties = append(objectProperties,0);
   objectProperties = append(objectProperties,255);
@@ -508,8 +538,20 @@ void changeCropStage(){
   }
 }
 
-int[] explode(int[] array,int index){                     // create the function
-    int[] frontSet = subset(array, 0, index);            // get the front
-    int[] endSet = subset(array, index , array.length-1);  // get the end
-    return concat(frontSet, endSet);                    // join them
+int[] explode(int[] array,int index){                      // create the function
+    int[] frontSet = subset(array, 0, index);          // get the front
+    int[] endSet = subset(array, index , array.length - 1);// get the end
+    return concat(frontSet, endSet);                       // join them
 };
+
+
+void mouseClicked(){
+  for(int k = 2;k<numberOfObjects+1;k++){
+    double distance = Math.sqrt((mouseX-objectProperties[k*9-9])*(mouseX-objectProperties[k*9-9]) + (mouseY-objectProperties[k*9-8])*(mouseY-objectProperties[k*9-8]));
+      if(distance < 20){
+        objectProperties[k*9-9] = 5000;
+        objectProperties[k*9-8] = 5000;
+        objectProperties[k*9-5] = 4;
+      }
+    }
+}
