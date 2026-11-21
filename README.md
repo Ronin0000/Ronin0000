@@ -1,5 +1,6 @@
-- 👋 Hi, I’m @Ronin0000
-- 👀 I’m like to code in ...  Java, C++, Javascript, Lua
-- 👀 I’m am interested in ...  Arduino, Espruino, Coding Games
-- I help contribute to Bangle.js 1 and 2 by making apps.
-- I own a 3D Printing Shop: https://www.etsy.com/shop/3DFidgetPros?sort_order=price_desc
+- 👋 Hi, I'm Ronin, a lighting designer and maker in Redmond, WA
+- 💻 I code in Java, C++, JavaScript, and Lua
+- 🎛️ Building the VX-1, a custom lighting console with motorized faders and STM32 firmware that talks to Vista 3 ([FluxBox-Console-Firmware](https://github.com/Ronin0000/FluxBox-Console-Firmware))
+- ⌚ I've contributed apps to Bangle.js 1 and 2
+- 🔌 Interested in Arduino, Espruino, and embedded hardware for live production
+- 🖨️ I run two 3D printing shops: [3DFidgetPros](https://www.etsy.com/shop/3DFidgetPros) and Voxel Lamps
